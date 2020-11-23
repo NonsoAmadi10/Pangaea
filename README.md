@@ -49,3 +49,7 @@ The /event endpoint is just used to print the data and verify everything is work
 - Run `./start-server.sh` to start the server
 
 - Test all endpoints using curl according to challenge specifications
+
+## Author
+
+- Chinonso Amadi
