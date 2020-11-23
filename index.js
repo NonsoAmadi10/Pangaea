@@ -38,10 +38,9 @@ app.get('/', (req, res) => {
 
 app.post('/publish/:topic', (req, res) => {
     const { message } = req.body;
-    const { topic } = req.params
+    const { topic } = req.params;
     sub.on("subscribe", (channel, count) => {
         pub.publish(topic, message)
-        console.log(count, channel)
     });
 
     return res.send({
@@ -51,7 +50,24 @@ app.post('/publish/:topic', (req, res) => {
 
 });
 
+app.post('/subscribe/:topic', (req, res) => {
+    const { url } = req.body;
+    const { topic } = req.params;
+    let msg;
+    sub.on("message", (channel, message) => {
+        msg = message;
+        console.log(channel, msg);
+        return res.redirect(`${url}?topic=${topic}&message=${msg}`)
+    });
+    sub.subscribe(topic);
+})
 
+//emit on event
+
+app.get('/event', (req, res) => {
+    const { query } = req
+    return res.send(query)
+})
 
 // Initialize express
 app.listen(8000, () => console.info('Server is running on Port 8080'))
