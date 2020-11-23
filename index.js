@@ -69,5 +69,10 @@ app.get('/event', (req, res) => {
     return res.send(query)
 })
 
+app.all('*', (req, res) => res.status(404).json({
+    success: false,
+    message: 'The page you are looking for does not exist'
+}));
+
 // Initialize express
 app.listen(8000, () => console.info('Server is running on Port 8080'))
